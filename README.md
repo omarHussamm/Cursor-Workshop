@@ -79,7 +79,38 @@ pnpm db:generate
 pnpm db:push
 ```
 
-### 5. Run Development Server
+### 5. Configure MCP (Optional - For Cursor IDE)
+
+If you're using Cursor IDE, you can set up the PostgreSQL MCP for enhanced database interactions:
+
+Create `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "DATABASE_URI",
+        "crystaldba/postgres-mcp",
+        "--access-mode=unrestricted"
+      ],
+      "env": {
+        "DATABASE_URI": "postgresql://postgres:postgres@localhost:5432/taskmanagement"
+      }
+    }
+  }
+}
+```
+
+**Note**: The `.cursor/mcp.json` file is gitignored as it contains database credentials. Each developer should create their own copy with their local database credentials.
+
+
+### 6. Run Development Server
 
 ```bash
 pnpm dev
