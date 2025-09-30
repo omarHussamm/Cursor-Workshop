@@ -16,7 +16,7 @@ export default async function TasksPage({ searchParams }: TasksPageProps) {
 
   if (!result.success || !result.data) {
     return (
-      <div className="container mx-auto py-10 px-4 md:px-6 lg:px-8">
+      <div>
         <h1 className="text-3xl font-bold mb-6">Tasks</h1>
         <p className="text-destructive">Failed to load tasks. Please try again.</p>
       </div>
@@ -26,7 +26,7 @@ export default async function TasksPage({ searchParams }: TasksPageProps) {
   const { tasks, total, totalPages } = result.data;
 
   return (
-    <div className="container mx-auto py-10 px-4 md:px-6 lg:px-8">
+    <div>
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold">Tasks</h1>

@@ -9,6 +9,10 @@ export const MIN_PRIORITY = 1;
 export const MAX_PRIORITY = 5;
 export const DEFAULT_PRIORITY = 3;
 
+// Comment validation constants
+export const MAX_COMMENT_LENGTH = 2000;
+export const MIN_COMMENT_LENGTH = 1;
+
 // Database constants
 export const DEFAULT_PAGE_SIZE = 10;
 export const MAX_PAGE_SIZE = 100;

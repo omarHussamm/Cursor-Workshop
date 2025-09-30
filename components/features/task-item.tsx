@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Pencil, Trash2, Loader2 } from "lucide-react";
+import { Pencil, Trash2, Loader2, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
+import Link from "next/link";
 import { deleteTask } from "@/lib/actions/task-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -79,12 +80,21 @@ export function TaskItem({ task }: TaskItemProps) {
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-lg">{task.title}</CardTitle>
+            <Link href={`/tasks/${task.id}`} className="hover:underline">
+              <CardTitle className="text-lg">{task.title}</CardTitle>
+            </Link>
             <CardDescription className="mt-1">
               {task.description || "No description"}
             </CardDescription>
           </div>
           <div className="flex gap-2">
+            <Link href={`/tasks/${task.id}`}>
+              <Button variant="ghost" size="icon" disabled={isPending}>
+                <MessageSquare className="h-4 w-4" />
+                <span className="sr-only">View Details</span>
+              </Button>
+            </Link>
+
             <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="icon" disabled={isPending}>

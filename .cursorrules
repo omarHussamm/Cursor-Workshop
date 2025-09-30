@@ -12,6 +12,7 @@ Components (Server/Client) → Server Actions → Services → Prisma → Postgr
 - Data fetching with async/await
 - Direct Prisma queries allowed
 - No 'use client' unless required
+- **IMPORTANT (Next.js 15):** Always await `params` and `searchParams` before accessing properties
 
 **Client Components ('use client'):**
 - Only for: forms, dialogs, interactive UI, client state
@@ -145,6 +146,7 @@ if (comment.authorEmail !== userEmail) {
 ❌ Silent errors (always handle + log)
 ❌ Hardcoded values (use env/constants)
 ❌ Mutations without revalidatePath()
+❌ Access params/searchParams directly without awaiting (Next.js 15)
 
 ## When to Ask Questions
 

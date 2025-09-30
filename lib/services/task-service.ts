@@ -51,6 +51,20 @@ export const taskService = {
   },
 
   /**
+   * Get a single task by ID with comments
+   */
+  async getTaskWithComments(id: string) {
+    return await prisma.task.findUnique({
+      where: { id },
+      include: {
+        comments: {
+          orderBy: { createdAt: "asc" },
+        },
+      },
+    });
+  },
+
+  /**
    * Create a new task
    */
   async createTask(data: CreateTaskInput): Promise<Task> {

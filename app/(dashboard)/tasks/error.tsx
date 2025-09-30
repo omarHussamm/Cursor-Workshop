@@ -24,7 +24,7 @@ export default function TasksError({ error, reset }: ErrorProps) {
   }, [error]);
 
   return (
-    <div className="container mx-auto py-10 px-4 md:px-6 lg:px-8">
+    <div>
       <div className="flex justify-center items-center min-h-[60vh]">
         <Card className="max-w-md w-full">
           <CardHeader>
