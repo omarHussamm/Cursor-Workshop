@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { deleteTask } from "@/lib/actions/task-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -44,7 +45,13 @@ export function TaskItem({ task }: TaskItemProps) {
 
   const handleDelete = () => {
     startTransition(async () => {
-      await deleteTask(task.id);
+      const result = await deleteTask(task.id);
+      
+      if (result.success) {
+        toast.success("Task deleted successfully!");
+      } else {
+        toast.error(result.error || "Failed to delete task");
+      }
     });
   };
 
@@ -96,7 +103,11 @@ export function TaskItem({ task }: TaskItemProps) {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="ghost" size="icon" disabled={isPending}>
-                  <Trash2 className="h-4 w-4" />
+                  {isPending ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-4 w-4" />
+                  )}
                   <span className="sr-only">Delete</span>
                 </Button>
               </AlertDialogTrigger>
@@ -108,8 +119,11 @@ export function TaskItem({ task }: TaskItemProps) {
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                  <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDelete} disabled={isPending}>
+                    {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Delete
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

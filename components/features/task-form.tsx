@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { createTask, updateTask } from "@/lib/actions/task-actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,6 +47,8 @@ export function TaskForm({ task, onSuccess }: TaskFormProps) {
         : await createTask(formDataObj);
 
       if (result.success) {
+        toast.success(task ? "Task updated successfully!" : "Task created successfully!");
+        
         if (!task) {
           // Reset form only for new tasks
           setFormData({
@@ -58,7 +62,9 @@ export function TaskForm({ task, onSuccess }: TaskFormProps) {
         }
         onSuccess?.();
       } else {
-        setError(result.error || "An error occurred");
+        const errorMessage = result.error || "An error occurred";
+        setError(errorMessage);
+        toast.error(errorMessage);
       }
     });
   };
@@ -171,6 +177,7 @@ export function TaskForm({ task, onSuccess }: TaskFormProps) {
 
       <div className="flex justify-end gap-2">
         <Button type="submit" disabled={isPending}>
+          {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isPending ? "Saving..." : task ? "Update Task" : "Create Task"}
         </Button>
       </div>
