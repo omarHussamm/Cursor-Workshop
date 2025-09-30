@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -7,6 +10,9 @@ export default function HomePage() {
           <p className="text-lg text-muted-foreground mb-8">
             A modern task management application built with Next.js 15, Prisma, and PostgreSQL
           </p>
+          <Button asChild>
+            <Link href="/tasks">Go to Tasks</Link>
+          </Button>
         </div>
       </div>
     </main>
